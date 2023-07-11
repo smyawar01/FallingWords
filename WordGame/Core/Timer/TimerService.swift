@@ -6,31 +6,30 @@
 //
 
 import Foundation
+import Combine
 
 protocol TimerService {
-    
-    func startService()
+        
     func stopService()
     var eventInterval: Double { get set }
-    var eventHandler: (() -> Void) { get }
 }
 
 public struct TimerServiceImpl: TimerService {
     var eventInterval: Double
-    var eventHandler: (() -> Void)
-    private let timerPublisher: Timer.TimerPublisher
+    private var timerCancellable: Cancellable?
     
-    public init(eventInterval: Double, eventHandler: @escaping () -> Void) {
+    
+    public init(eventInterval: Double, eventHandler: @escaping (Date) -> Void) {
         
         self.eventInterval = eventInterval
-        self.eventHandler = eventHandler
-        self.timerPublisher = Timer.publish(every: self.eventInterval,
-                                            on: .current, in: .common)
+        self.timerCancellable = Timer.publish(every: eventInterval,
+                                              on: .main,
+                                              in: .common)
+        .autoconnect()
+        .sink(receiveValue: eventHandler)
     }
-    func startService() {
-        
-    }
-    
     func stopService() {
+        
+        self.timerCancellable?.cancel()
     }
 }

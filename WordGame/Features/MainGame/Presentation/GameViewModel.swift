@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum GameViewState {
+    
+    case started
+    case ended(Int)
+}
 protocol GameViewModel: ObservableObject {
     
     var score: Score { get }
@@ -21,7 +26,7 @@ protocol GameViewModel: ObservableObject {
 class GameViewModelImpl: GameViewModel {
     
     @Published var score: Score = .init(correct: 0, wrong: 0)
-    @Published var currentWord: RoundWord = RoundWord(questionWord: "",
+    @Published var currentWord: RoundWord = .init(questionWord: "",
                                                       answerWord: "",
                                                       correctTranslation: false)
     @Published var gameEnded: Bool = false
@@ -51,7 +56,7 @@ class GameViewModelImpl: GameViewModel {
                 
                 guard !words.isEmpty else { return }
                 self.roundWords = words
-                self.currentWord = self.roundWords[0]
+                self.currentWord = self.roundWords.first!
                 
             case .failure(let error):
 

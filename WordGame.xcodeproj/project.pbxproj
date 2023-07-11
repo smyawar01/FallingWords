@@ -22,6 +22,7 @@
 		034C8CF9292AD02B0087A6FA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034C8CF8292AD02A0087A6FA /* Constants.swift */; };
 		034C8CFB292AD1F60087A6FA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034C8CFA292AD1F60087A6FA /* Theme.swift */; };
 		03AD93D62A5C172700185771 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AD93D52A5C172700185771 /* TimerService.swift */; };
+		03AD93DA2A5D56FF00185771 /* FallingWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AD93D92A5D56FF00185771 /* FallingWordView.swift */; };
 		03B3E2CD292620D600C7F59C /* WordGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3E2CC292620D600C7F59C /* WordGameApp.swift */; };
 		03B3E2CF292620D600C7F59C /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3E2CE292620D600C7F59C /* GameView.swift */; };
 		03B3E2D1292620D800C7F59C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03B3E2D0292620D800C7F59C /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		034C8CF8292AD02A0087A6FA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		034C8CFA292AD1F60087A6FA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		03AD93D52A5C172700185771 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		03AD93D92A5D56FF00185771 /* FallingWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingWordView.swift; sourceTree = "<group>"; };
 		03B3E2C9292620D600C7F59C /* WordGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B3E2CC292620D600C7F59C /* WordGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGameApp.swift; sourceTree = "<group>"; };
 		03B3E2CE292620D600C7F59C /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				03B3E2CE292620D600C7F59C /* GameView.swift */,
 				03B3E2F9292645CD00C7F59C /* FooterView.swift */,
 				034C8CD22928AD350087A6FA /* CounterView.swift */,
+				03AD93D92A5D56FF00185771 /* FallingWordView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				034C8CEA2929D7530087A6FA /* Score.swift in Sources */,
+				03AD93DA2A5D56FF00185771 /* FallingWordView.swift in Sources */,
 				03B3E2FA292645CD00C7F59C /* FooterView.swift in Sources */,
 				03B3E2CF292620D600C7F59C /* GameView.swift in Sources */,
 				034C8CD92928BCA10087A6FA /* WordsRepository.swift in Sources */,
