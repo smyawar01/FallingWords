@@ -13,12 +13,8 @@ struct FooterView: View {
     var body: some View {
         HStack(spacing: 100) {
             
-            Button("Correct") {
-                onPress(true)
-            }
-            Button("Wrong") {
-                onPress(false)
-            }
+            Button("Correct") { onPress(true) }
+            Button("Wrong") { onPress(false) }
         }
     }
 }

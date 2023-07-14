@@ -9,29 +9,26 @@ import Foundation
 
 enum GameViewState {
     
-    case started
-    case ended(Int)
+    case `default`
+    case started(RoundWord)
+    case ended(score: Score)
 }
 protocol GameViewModel: ObservableObject {
     
+    var gameState: GameViewState { get set }
     var score: Score { get }
-    var currentWord: RoundWord { get }
-    var gameEnded: Bool { get set }
     func startGame()
-    func onCorrect()
-    func onWrong()
+    func onAttemptAnswer(action: Bool)
     func quit()
 }
 
 class GameViewModelImpl: GameViewModel {
     
-    @Published var score: Score = .init(correct: 0, wrong: 0)
-    @Published var currentWord: RoundWord = .init(questionWord: "",
-                                                      answerWord: "",
-                                                      correctTranslation: false)
-    @Published var gameEnded: Bool = false
-    
     typealias WordResponse = (Result<[RoundWord], Error>) -> Void
+    
+    @Published private(set) var score: Score = .init(correct: 0, wrong: 0)
+    @Published var currentWord: RoundWord
+    @Published var gameState: GameViewState = .default
     
     private var roundWords: [RoundWord] = []
     private let wordRepository: WordRepository
@@ -46,7 +43,6 @@ class GameViewModelImpl: GameViewModel {
     
     func startGame() {
         
-        resetToDefault()
         self.load { [weak self] result in
             
             guard let self = self else { return }
@@ -65,14 +61,9 @@ class GameViewModelImpl: GameViewModel {
         }
     }
     
-    func onCorrect() {
+    func onAttemptAnswer(action: Bool) {
         
-        onAnswerSelection(with: true)
-    }
-    
-    func onWrong() {
-        
-        onAnswerSelection(with: false)
+        onAnswerSelection(with: action)
     }
     func quit() {
     }
@@ -95,7 +86,7 @@ private extension GameViewModelImpl {
         let currentIndex = currentIndex(score: score)
         if gameEngine.endGame(currentIndex: currentIndex,
                               incorrectCount: score.wrong) {
-            gameEnded = true
+            setGameState(state: .ended(score: score))
         } else {
             
             currentWord = roundWords[currentIndex + 1]
@@ -106,6 +97,10 @@ private extension GameViewModelImpl {
 
 extension GameViewModelImpl {
     
+    private func setGameState(state: GameViewState) {
+        
+        gameState = state
+    }
     private func currentIndex(score: Score) -> Int {
         
         return score.correct + score.wrong
