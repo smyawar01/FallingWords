@@ -11,6 +11,7 @@ struct GameView<ViewModel: GameViewModel>: View {
     
     @ObservedObject var viewModel: ViewModel
     @State var showAlert: Bool
+    @State var offsetY = 0.0
     
     var body: some View {
         VStack(spacing: CGFloat(Theme.Spacing.standard)) {
@@ -20,7 +21,8 @@ struct GameView<ViewModel: GameViewModel>: View {
                 CounterView(attempCount: viewModel.score)
             }
             Text(viewModel.currentWord.questionWord)
-            Text(viewModel.currentWord.answerWord)
+            FallingWordView(answerWord: viewModel.currentWord.answerWord,
+                            viewOffset: offsetY )
             Spacer()
             FooterView { viewModel.onAttemptAnswer(action: $0) }
         }
