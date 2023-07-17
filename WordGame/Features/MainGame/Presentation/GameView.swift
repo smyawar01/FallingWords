@@ -10,8 +10,10 @@ import SwiftUI
 struct GameView<ViewModel: GameViewModel>: View {
     
     @ObservedObject var viewModel: ViewModel
-    @State var showAlert: Bool
+    @State var showAlert: Bool = false
     @State var offsetY = 0.0
+    @State var currentWord: RoundWord = .init(questionWord: "", answerWord: "", correctTranslation: false)
+    @State var score: Score = .init(correct: 0, wrong: 0)
     
     var body: some View {
         VStack(spacing: CGFloat(Theme.Spacing.standard)) {
@@ -20,8 +22,8 @@ struct GameView<ViewModel: GameViewModel>: View {
                 Spacer()
                 CounterView(attempCount: viewModel.score)
             }
-            Text(viewModel.currentWord.questionWord)
-            FallingWordView(answerWord: viewModel.currentWord.answerWord,
+            Text(currentWord.questionWord)
+            FallingWordView(answerWord: currentWord.answerWord,
                             viewOffset: offsetY )
             Spacer()
             FooterView { viewModel.onAttemptAnswer(action: $0) }

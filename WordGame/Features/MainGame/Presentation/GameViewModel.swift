@@ -12,6 +12,7 @@ enum GameViewState {
     case `default`
     case started(RoundWord)
     case ended(score: Score)
+    case running
 }
 protocol GameViewModel: ObservableObject {
     
@@ -55,6 +56,7 @@ class GameViewModelImpl: GameViewModel {
                 guard !words.isEmpty else { return }
                 self.roundWords = words
                 self.currentWord = self.roundWords.first!
+                self.setGameState(state: .started(self.currentWord))
                 
             case .failure(let error):
 
