@@ -10,9 +10,9 @@ import Foundation
 enum GameViewState {
     
     case `default`
-    case started(RoundWord)
+    case started(RoundWord, Score)
     case ended(score: Score)
-    case running
+    case falling(Double)
 }
 protocol GameViewModel: ObservableObject {
     
@@ -56,7 +56,7 @@ class GameViewModelImpl: GameViewModel {
                 guard !words.isEmpty else { return }
                 self.roundWords = words
                 self.currentWord = self.roundWords.first!
-                self.setGameState(state: .started(self.currentWord))
+                self.setGameState(state: .started(self.currentWord, .init(correct: 0, wrong: 0)))
                 
             case .failure(let error):
 
@@ -69,8 +69,7 @@ class GameViewModelImpl: GameViewModel {
         
         onAnswerSelection(with: action)
     }
-    func quit() {
-    }
+    func quit() { }
 }
 //MARK: Game Flow Logic
 

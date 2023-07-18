@@ -20,7 +20,7 @@ struct GameView<ViewModel: GameViewModel>: View {
             
             HStack {
                 Spacer()
-                CounterView(attempCount: viewModel.score)
+                CounterView(attempCount: score)
             }
             Text(currentWord.questionWord)
             FallingWordView(answerWord: currentWord.answerWord,
@@ -29,14 +29,30 @@ struct GameView<ViewModel: GameViewModel>: View {
             FooterView { viewModel.onAttemptAnswer(action: $0) }
         }
         .padding(CGFloat(Theme.Spacing.expanded))
-        .onAppear { viewModel.startGame() }
+        .onAppear { bindViewState() }
         .alert(isPresented: $showAlert) {
             
             Alert(title: Text("End Game"),
-                  message: Text("Your final score is \(viewModel.score.correct)"),
+                  message: Text("Your final score is \(score.correct)"),
                   primaryButton: .default(Text("Restart"), action: { viewModel.startGame() }),
                   secondaryButton: .cancel(Text("Quit"), action: { viewModel.quit() })
             )
+        }
+    }
+    private func bindViewState() {
+        
+        switch viewModel.gameState {
+        
+        case .default:
+            viewModel.startGame()
+        case .started(let word, let score):
+            currentWord = word
+            self.score = score
+        case .ended(score: let score):
+            showAlert = true
+            self.score = score
+        case .falling(let offsetY):
+            self.offsetY = offsetY
         }
     }
 }
