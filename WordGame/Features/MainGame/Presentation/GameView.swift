@@ -26,7 +26,7 @@ struct GameView<ViewModel: GameViewModel>: View {
             FallingWordView(answerWord: currentWord.answerWord,
                             viewOffset: offsetY )
             Spacer()
-            FooterView { viewModel.onAttemptAnswer(action: $0) }
+            FooterView { viewModel.selectAnswer(action: $0) }
         }
         .padding(CGFloat(Theme.Spacing.expanded))
         .onAppear { bindViewState() }

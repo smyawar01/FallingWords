@@ -17,10 +17,9 @@ enum GameViewState {
 protocol GameViewModel: ObservableObject {
     
     var gameState: GameViewState { get set }
-    var score: Score { get }
     var currentWord: RoundWord { get }
     func startGame()
-    func onAttemptAnswer(action: Bool)
+    func selectAnswer(action: Bool)
     func quit()
 }
 
@@ -28,7 +27,7 @@ class GameViewModelImpl: GameViewModel {
     
     typealias WordResponse = (Result<[RoundWord], Error>) -> Void
     
-    @Published private(set) var score: Score = .init(correct: 0, wrong: 0)
+    private var score: Score = .init(correct: 0, wrong: 0)
     @Published var currentWord: RoundWord = .init(questionWord: "",
                                                   answerWord: "", correctTranslation: false)
     @Published var gameState: GameViewState = .default
@@ -65,7 +64,7 @@ class GameViewModelImpl: GameViewModel {
         }
     }
     
-    func onAttemptAnswer(action: Bool) {
+    func selectAnswer(action: Bool) {
         
         onAnswerSelection(with: action)
     }
